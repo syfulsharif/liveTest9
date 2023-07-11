@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:livetest9/recipes.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -11,6 +12,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Recipe> recipes = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -24,8 +26,17 @@ class _MyHomePageState extends State<MyHomePage> {
       Uri.parse(
           'https://raw.githubusercontent.com/syfulsharif/crud_app_live_1/main/lib/recipies.json'),
     );
-    final Map <String, dynamic> decodedResponse = jsonDecode(response.body);
-
+    final Map<String, dynamic> decodedResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      for (var e in decodedResponse['recipes']) {
+        print('adding ${e}');
+        recipes.add(
+          Recipe(e['title'], e['description'], e['ingredients']),
+        );
+      }
+    }
+    // print(decodedResponse['recipes']);
+    // print(recipes);
   }
 
   @override
