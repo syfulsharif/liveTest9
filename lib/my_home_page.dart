@@ -45,7 +45,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Food Recipes'),
+        title: const Text(
+          'Food Recipes',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.deepPurple,
         centerTitle: true,
       ),
       body: inProgress
