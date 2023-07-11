@@ -13,6 +13,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Recipe> recipes = [];
+  bool inProgress = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -21,6 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void getRecipes() async {
+    inProgress = true;
     //https://raw.githubusercontent.com/syfulsharif/crud_app_live_1/main/lib/recipies.json
     Response response = await get(
       Uri.parse(
@@ -35,9 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     // print(decodedResponse['recipes']);
     // print(recipes);
-    setState(() {
-
-    });
+    inProgress = false;
+    setState(() {});
   }
 
   @override
@@ -47,33 +48,40 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Food Recipes'),
         centerTitle: true,
       ),
-      body: ListView.builder(
-        itemCount: recipes.length,
-        itemBuilder: (context, index) {
-          return SingleChildScrollView(
-            child: ListTile(
-              title: Text(
-                recipes[index].title,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: Text(
-                recipes[index].description,
-                style: const TextStyle(color: Colors.grey, fontSize: 18),
-              ),
-              leading: Image.network(
-                'https://www.seriouseats.com/thmb/MHMlz7l-gpIzTYPuP8Mqy7k2-u4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/SEA-classic-panzanella-salad-recipe-hero-03-74d7b17dde8f498795387ef0c22d7215.jpg',
-                width: 60,
-                errorBuilder: (_,__,___){
-                  return const Icon(Icons.food_bank, size: 60,);
-                },
-              ),
+      body: inProgress
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: recipes.length,
+              itemBuilder: (context, index) {
+                return SingleChildScrollView(
+                  child: ListTile(
+                    title: Text(
+                      recipes[index].title,
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      recipes[index].description,
+                      style: const TextStyle(color: Colors.grey, fontSize: 18),
+                    ),
+                    leading: Image.network(
+                      'https://www.seriouseats.com/thmb/MHMlz7l-gpIzTYPuP8Mqy7k2-u4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/SEA-classic-panzanella-salad-recipe-hero-03-74d7b17dde8f498795387ef0c22d7215.jpg',
+                      width: 60,
+                      errorBuilder: (_, __, ___) {
+                        return const Icon(
+                          Icons.food_bank,
+                          size: 60,
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
