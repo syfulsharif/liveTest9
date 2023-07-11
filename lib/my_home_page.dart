@@ -47,9 +47,30 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
       ),
       body: ListView.builder(
-        itemCount: 10,
+        itemCount: recipes.length,
         itemBuilder: (context, index) {
-          return ListTile();
+          return SingleChildScrollView(
+            child: ListTile(
+              title: Text(
+                recipes[index].title,
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                recipes[index].description,
+                style: const TextStyle(color: Colors.grey, fontSize: 18),
+              ),
+              leading: Image.network(
+                'https://www.seriouseats.com/thmb/MHMlz7l-gpIzTYPuP8Mqy7k2-u4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/SEA-classic-panzanella-salad-recipe-hero-03-74d7b17dde8f498795387ef0c22d7215.jpg',
+                width: 60,
+                errorBuilder: (_,__,___){
+                  return const Icon(Icons.food_bank, size: 60,);
+                },
+              ),
+            ),
+          );
         },
       ),
     );
