@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final Map<String, dynamic> decodedResponse = jsonDecode(response.body);
     if (response.statusCode == 200) {
       for (var e in decodedResponse['recipes']) {
-        print('adding ${e}');
+        // print('adding ${e}');
         recipes.add(
           Recipe(e['title'], e['description'], e['ingredients']),
         );
@@ -37,6 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     // print(decodedResponse['recipes']);
     // print(recipes);
+    setState(() {
+
+    });
   }
 
   @override
