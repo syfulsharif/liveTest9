@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -10,19 +10,31 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void getRecipes() async {
+    //https://raw.githubusercontent.com/syfulsharif/crud_app_live_1/main/lib/recipies.json
+    Response response = await get(
+      Uri.parse(
+          'https://raw.githubusercontent.com/syfulsharif/crud_app_live_1/main/lib/recipies.json'),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Food Recipes'),
         centerTitle: true,
       ),
-
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {
           return ListTile();
         },
-
       ),
     );
   }
