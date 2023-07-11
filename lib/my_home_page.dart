@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -13,6 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getRecipes();
   }
 
   void getRecipes() async {
@@ -21,6 +24,8 @@ class _MyHomePageState extends State<MyHomePage> {
       Uri.parse(
           'https://raw.githubusercontent.com/syfulsharif/crud_app_live_1/main/lib/recipies.json'),
     );
+    final Map <String, dynamic> decodedResponse = jsonDecode(response.body);
+
   }
 
   @override
