@@ -30,9 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (response.statusCode == 200) {
       for (var e in decodedResponse['recipes']) {
         // print('adding ${e}');
-        recipes.add(
-          Recipe(e['title'], e['description'], e['ingredients']),
-        );
+        recipes.add(Recipe.fromJSON(e));
       }
     }
     // print(decodedResponse['recipes']);
